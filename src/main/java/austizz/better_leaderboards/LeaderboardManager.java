@@ -74,7 +74,6 @@ public class LeaderboardManager {
         refreshRequested = false;
         cachedRanks.clear();
         cachedKills.clear();
-        FakePlayer.clear();
     }
 
     @SubscribeEvent
@@ -334,52 +333,14 @@ public class LeaderboardManager {
     }
 
     private static void updateStatue(ServerLevel level, MinecraftServer server, LeaderboardData.LeaderboardConfig cfg, UUID top1, PlayerStatsList stats) {
-        String lbTag = TAG_LB_PREFIX + cfg.id;
-
-        int lines = 2 + (cfg.topN <= 0 ? 10 : cfg.topN);
-        double statueY = cfg.y - (lines * LINE_SPACING) - 1.5D;
-
-        // Get player name and stat display
-        String name = resolveName(server, top1);
-        StatType statType = cfg.statType != null ? cfg.statType : StatType.PLAYER_KILLS;
-        String value = statType.getFormattedValue(stats);
-        String suffix = statType.getSuffix();
-        String statDisplay = value + (suffix.isEmpty() ? "" : " " + suffix);
-
-        // Spawn or update the fake player (packet-based, shows full skin)
-        FakePlayer.spawnOrUpdate(server, cfg.id, top1, name, cfg.x, statueY, cfg.z, 0.0F);
-
-        // Create/update name tag armor stand above the fake player
-        ArmorStand nameTag = findArmorStand(level, lbTag, TAG_STATUE, cfg.x, cfg.y, cfg.z);
-        double nameTagY = statueY + 2.0D;
-
-        if (nameTag == null) {
-            nameTag = new ArmorStand(level, cfg.x, nameTagY, cfg.z);
-            nameTag.addTag(TAG_LB);
-            nameTag.addTag(lbTag);
-            nameTag.addTag(TAG_STATUE);
-            nameTag.setNoGravity(true);
-            nameTag.setInvulnerable(true);
-            nameTag.setInvisible(true);
-            nameTag.setNoBasePlate(true);
-            nameTag.setCustomNameVisible(true);
-            setMarker(nameTag, true);
-            level.addFreshEntity(nameTag);
-        } else {
-            nameTag.setPos(cfg.x, nameTagY, cfg.z);
-        }
-
-        nameTag.setCustomName(Component.literal("§6#1 " + name + " §7(" + statDisplay + ")"));
-        nameTag.setCustomNameVisible(true);
+        // NPC/statue feature removed - this method is now a no-op
+        // Keeping the method to avoid breaking existing code that calls it
     }
 
     private static void removeStatue(ServerLevel level, String lbTag, double x, double y, double z) {
         // Force load the chunk to ensure entities are available
         BlockPos pos = BlockPos.containing(x, y, z);
         level.getChunk(pos);
-
-        // Remove the packet-based fake player
-        FakePlayer.despawn(level.getServer(), lbTag.replace(TAG_LB_PREFIX, ""));
 
         AABB box = searchBox(x, y, z);
 
@@ -542,9 +503,6 @@ public class LeaderboardManager {
         for (ArmorStand s : stands) {
             s.discard();
         }
-
-        // Remove the fake player statue if it exists
-        FakePlayer.despawn(server, id);
 
         data.removeLeaderboard(id);
         requestRefresh(server);

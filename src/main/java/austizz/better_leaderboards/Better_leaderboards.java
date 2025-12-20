@@ -157,9 +157,6 @@ public class Better_leaderboards {
 
         }
         player.sendSystemMessage(Component.literal("Hello : " + event.getEntity().getName().getString() ));
-
-        // Send existing fake player statues to the newly joined player
-        FakePlayer.sendToPlayer(player);
     }
 
 
@@ -191,7 +188,6 @@ public class Better_leaderboards {
 
         // Clear all static data to ensure data is per-world
         LeaderboardManager.reset();
-        FakePlayer.clear();
         ServerList.clear();
         DataHandler.clear();
     }
