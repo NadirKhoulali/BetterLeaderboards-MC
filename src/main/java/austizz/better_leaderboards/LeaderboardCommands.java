@@ -46,11 +46,6 @@ public class LeaderboardCommands {
                 .then(Commands.argument("id", StringArgumentType.word())
                         .executes(ctx -> delete(ctx.getSource(), StringArgumentType.getString(ctx, "id"))));
 
-        var npc = Commands.literal("npc")
-                .then(Commands.argument("id", StringArgumentType.word())
-                        .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                .executes(ctx -> npc(ctx.getSource(), StringArgumentType.getString(ctx, "id"), BoolArgumentType.getBool(ctx, "enabled")))));
-
         var refresh = Commands.literal("refresh")
                 .executes(ctx -> refresh(ctx.getSource(), null))
                 .then(Commands.argument("id", StringArgumentType.word())
@@ -80,7 +75,6 @@ public class LeaderboardCommands {
                 .requires(src -> src.hasPermission(2))
                 .then(create)
                 .then(delete)
-                .then(npc)
                 .then(refresh)
                 .then(list)
                 .then(moveHere)
@@ -168,23 +162,6 @@ public class LeaderboardCommands {
         return 1;
     }
 
-    private static int npc(CommandSourceStack source, String idRaw, boolean enabled) {
-        if (!(source.getEntity() instanceof ServerPlayer player)) {
-            source.sendFailure(Component.literal("Must be a player"));
-            return 0;
-        }
-
-        String id = LeaderboardManager.normalizeId(idRaw);
-        boolean ok = LeaderboardManager.setNpcEnabled(player, id, enabled);
-        if (!ok) {
-            source.sendFailure(Component.literal("Could not update NPC setting (leaderboard not found?)"));
-            return 0;
-        }
-
-        source.sendSuccess(() -> Component.literal("Leaderboard '" + id + "' NPC is now " + (enabled ? "enabled" : "disabled")), true);
-        return 1;
-    }
-
     private static int refresh(CommandSourceStack source, String idRaw) {
         if (source.getServer() == null) {
             return 0;
@@ -224,7 +201,7 @@ public class LeaderboardCommands {
         source.sendSuccess(() -> Component.literal("Leaderboards:"), false);
         data.getLeaderboards().values().forEach(cfg -> {
             String statName = cfg.statType != null ? cfg.statType.getDisplayName() : "Player Kills";
-            source.sendSuccess(() -> Component.literal("- " + cfg.id + " [" + statName + "] (top " + cfg.topN + ") npc=" + cfg.npcEnabled), false);
+            source.sendSuccess(() -> Component.literal("- " + cfg.id + " [" + statName + "] (top " + cfg.topN + ")"), false);
         });
         return 1;
     }
