@@ -2,9 +2,6 @@
 
 A Minecraft Forge mod for creating customizable holographic leaderboards that display player statistics in your world.
 
-![Static Badge](https://img.shields.io/badge/:badgeContent?style=social&logo=discord&logoColor=%235865F2&link=https%3A%2F%2Fdiscord.gg%2Fg9NjRT22nr)
-
-
 **Minecraft Version:** 1.20.1  
 **Forge Version:** 47.4.13+
 
