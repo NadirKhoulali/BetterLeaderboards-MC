@@ -13,6 +13,8 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.UUID;
+
 @Mod.EventBusSubscriber(modid = Better_leaderboards.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LeaderboardCommands {
 
@@ -84,7 +86,15 @@ public class LeaderboardCommands {
 
         root.then(Commands.literal("rank")
                 .requires(src -> src.getEntity() instanceof ServerPlayer)
-                .executes(ctx -> rank(ctx.getSource())));
+                .executes(ctx -> rank(ctx.getSource(), "kills"))
+                .then(Commands.argument("statType", StringArgumentType.word())
+                        .suggests((ctx, builder) -> {
+                            for (String name : StatType.getNames()) {
+                                builder.suggest(name);
+                            }
+                            return builder.buildFuture();
+                        })
+                        .executes(ctx -> rank(ctx.getSource(), StringArgumentType.getString(ctx, "statType")))));
 
         dispatcher.register(root);
     }
@@ -206,18 +216,27 @@ public class LeaderboardCommands {
         return 1;
     }
 
-    private static int rank(CommandSourceStack source) {
+    private static int rank(CommandSourceStack source, String statTypeStr) {
         if (!(source.getEntity() instanceof ServerPlayer player)) {
             return 0;
         }
 
-        Integer rank = LeaderboardManager.getRank(player.getUUID());
-        int kills = LeaderboardManager.getKills(player.getUUID());
+        StatType statType = StatType.fromString(statTypeStr);
+        UUID uuid = player.getUUID();
+
+        // Get player stats
+        PlayerStatsList stats = ServerList.getPlayer(uuid);
+
+        // Calculate rank for this specific stat type
+        Integer rank = LeaderboardManager.getRankForStat(uuid, statType);
+        String value = statType.getFormattedValue(stats);
+        String suffix = statType.getSuffix();
+        String statDisplay = value + (suffix.isEmpty() ? "" : " " + suffix);
 
         if (rank == null) {
-            player.sendSystemMessage(Component.literal("Your rank: Unranked (" + kills + " kills)"));
+            player.sendSystemMessage(Component.literal("Your " + statType.getDisplayName() + " rank: Unranked (" + statDisplay + ")"));
         } else {
-            player.sendSystemMessage(Component.literal("Your rank: #" + rank + " (" + kills + " kills)"));
+            player.sendSystemMessage(Component.literal("Your " + statType.getDisplayName() + " rank: #" + rank + " (" + statDisplay + ")"));
         }
         return 1;
     }

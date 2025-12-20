@@ -1,0 +1,237 @@
+<p><img src="https://i.imgur.com/Z3kp08f.png" alt="Better Leaderboards Banner" width="100%" /></p>
+
+<h2>📊 Overview</h2>
+<p>Better Leaderboards is a Minecraft Forge mod that allows you to create beautiful, customizable holographic leaderboards anywhere in your world. Display player statistics like kills, deaths, mob kills, K/D ratio, and playtime with style!</p>
+
+<hr />
+
+<h2>✨ Features</h2>
+<ul>
+    <li><strong>Holographic Leaderboards</strong> - Floating armor stand-based leaderboards that display player rankings</li>
+    <li><strong>Custom Headers</strong> - Add custom headers with Minecraft color codes support</li>
+    <li><strong>Medal Colors</strong> - Top 3 players are highlighted with Gold 🥇, Silver 🥈, and Bronze 🥉 colors</li>
+    <li><strong>Multiple Statistics</strong> - Track various player stats</li>
+    <li><strong>Auto-Refresh</strong> - Leaderboards automatically refresh every 5 seconds</li>
+    <li><strong>Persistent Data</strong> - All data is saved per-world and persists across restarts</li>
+</ul>
+
+<hr />
+
+<h2>📈 Available Statistics</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Stat Type</th>
+            <th>Aliases</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>kills</code></td>
+            <td>playerkills, pk</td>
+            <td>Player vs Player kills</td>
+        </tr>
+        <tr>
+            <td><code>deaths</code></td>
+            <td>playerdeaths, pd</td>
+            <td>Times killed by other players</td>
+        </tr>
+        <tr>
+            <td><code>mobs</code></td>
+            <td>mobkills, mk</td>
+            <td>Hostile mob kills</td>
+        </tr>
+        <tr>
+            <td><code>time</code></td>
+            <td>timeplayed, playtime, tp</td>
+            <td>Time spent playing (e.g., 2h 30m)</td>
+        </tr>
+        <tr>
+            <td><code>kd</code></td>
+            <td>kdratio, ratio</td>
+            <td>Kill/Death ratio (e.g., 2.50)</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr />
+
+<h2>🎮 Commands</h2>
+<p>All commands use the <code>/bl</code> prefix. Leaderboard management requires <strong>operator permission level 2</strong>.</p>
+
+<h3>Create a Leaderboard</h3>
+<pre><code>/bl lb create &lt;id&gt; [statType] [topN] [npcEnabled] [header]</code></pre>
+<table>
+    <thead>
+        <tr>
+            <th>Parameter</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>id</code></td>
+            <td><em>required</em></td>
+            <td>Unique identifier for the leaderboard</td>
+        </tr>
+        <tr>
+            <td><code>statType</code></td>
+            <td>kills</td>
+            <td>The statistic to display</td>
+        </tr>
+        <tr>
+            <td><code>topN</code></td>
+            <td>10</td>
+            <td>Number of players to show (1-50)</td>
+        </tr>
+        <tr>
+            <td><code>npcEnabled</code></td>
+            <td>false</td>
+            <td>Reserved for future use</td>
+        </tr>
+        <tr>
+            <td><code>header</code></td>
+            <td><em>auto</em></td>
+            <td>Custom header (supports color codes)</td>
+        </tr>
+    </tbody>
+</table>
+
+<p><strong>Examples:</strong></p>
+<pre><code>/bl lb create pvp
+/bl lb create killboard kills 5
+/bl lb create topkills kills 10 false &amp;6&amp;lTOP KILLERS
+/bl lb create deathboard deaths 10 false &amp;c☠ Most Deaths ☠</code></pre>
+
+<h3>Delete a Leaderboard</h3>
+<pre><code>/bl lb delete &lt;id&gt;</code></pre>
+
+<h3>Move Leaderboard to Your Position</h3>
+<pre><code>/bl lb moveHere &lt;id&gt;</code></pre>
+
+<h3>Move Leaderboard to Coordinates</h3>
+<pre><code>/bl lb moveTo &lt;id&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</code></pre>
+
+<h3>Refresh Leaderboards</h3>
+<pre><code>/bl lb refresh [id]</code></pre>
+
+<h3>List All Leaderboards</h3>
+<pre><code>/bl lb list</code></pre>
+
+<h3>Check Your Rank (Available to all players)</h3>
+<pre><code>/bl rank [statType]</code></pre>
+<p>Displays your current rank for the specified statistic. Defaults to kills if no stat type is provided.</p>
+<p><strong>Examples:</strong></p>
+<pre><code>/bl rank
+/bl rank kills
+/bl rank deaths
+/bl rank kd
+/bl rank time</code></pre>
+
+<hr />
+
+<h2>🎨 Color Codes</h2>
+<p>Custom headers support Minecraft color codes using the <code>&amp;</code> symbol:</p>
+
+<h3>Colors</h3>
+<table>
+    <tbody>
+        <tr>
+            <td><code>&amp;0</code> Black</td>
+            <td><code>&amp;1</code> Dark Blue</td>
+            <td><code>&amp;2</code> Dark Green</td>
+            <td><code>&amp;3</code> Dark Aqua</td>
+        </tr>
+        <tr>
+            <td><code>&amp;4</code> Dark Red</td>
+            <td><code>&amp;5</code> Dark Purple</td>
+            <td><code>&amp;6</code> Gold</td>
+            <td><code>&amp;7</code> Gray</td>
+        </tr>
+        <tr>
+            <td><code>&amp;8</code> Dark Gray</td>
+            <td><code>&amp;9</code> Blue</td>
+            <td><code>&amp;a</code> Green</td>
+            <td><code>&amp;b</code> Aqua</td>
+        </tr>
+        <tr>
+            <td><code>&amp;c</code> Red</td>
+            <td><code>&amp;d</code> Light Purple</td>
+            <td><code>&amp;e</code> Yellow</td>
+            <td><code>&amp;f</code> White</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Formatting</h3>
+<table>
+    <tbody>
+        <tr>
+            <td><code>&amp;l</code> <strong>Bold</strong></td>
+            <td><code>&amp;o</code> <em>Italic</em></td>
+            <td><code>&amp;n</code> <u>Underline</u></td>
+            <td><code>&amp;m</code> <s>Strikethrough</s></td>
+            <td><code>&amp;r</code> Reset</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr />
+
+<h2>🏆 Medal Colors</h2>
+<p>The top 3 players on each leaderboard are highlighted with special colors:</p>
+<ul>
+    <li>🥇 <strong>1st Place</strong> - <span style="color: #FFD700;">Gold (#FFD700)</span></li>
+    <li>🥈 <strong>2nd Place</strong> - <span style="color: #C0C0C0;">Silver (#C0C0C0)</span></li>
+    <li>🥉 <strong>3rd Place</strong> - <span style="color: #CD7F32;">Bronze (#CD7F32)</span></li>
+</ul>
+
+<hr />
+
+<h2>⚙️ Technical Details</h2>
+<ul>
+    <li><strong>Refresh Rate:</strong> Leaderboards update every 5 seconds</li>
+    <li><strong>Time Tracking:</strong> Player time is tracked every 60 seconds to minimize server load</li>
+    <li><strong>Actionbar Range:</strong> Position indicator shows within 32 blocks of a leaderboard</li>
+</ul>
+
+<hr />
+
+<h2>📋 Requirements</h2>
+<ul>
+    <li>Minecraft <strong>1.20.1</strong></li>
+    <li>Forge <strong>47.4.13</strong> or higher</li>
+</ul>
+
+<hr />
+
+<h2>🔧 Installation</h2>
+<ol>
+    <li>Install <a href="https://files.minecraftforge.net/">Minecraft Forge</a> for Minecraft 1.20.1</li>
+    <li>Download the Better Leaderboards JAR file</li>
+    <li>Place the JAR file in your <code>mods</code> folder</li>
+    <li>Start your Minecraft server or client</li>
+</ol>
+
+<hr />
+
+<h2>❓ Troubleshooting</h2>
+<p><strong>Leaderboard not appearing?</strong></p>
+<ul>
+    <li>Ensure you have operator permissions</li>
+    <li>Check if you're in the correct dimension</li>
+    <li>Use <code>/bl lb list</code> to verify the leaderboard exists</li>
+</ul>
+
+<p><strong>Statistics not updating?</strong></p>
+<ul>
+    <li>Statistics update every 5 seconds automatically</li>
+    <li>Use <code>/bl lb refresh</code> to force an immediate update</li>
+</ul>
+
+<hr />
+
+<p><em>Created by Austizz</em></p>
+

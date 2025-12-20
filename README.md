@@ -102,9 +102,22 @@ Shows all existing leaderboards with their stat type and top-N count.
 
 #### Check Your Rank
 ```
-/bl rank
+/bl rank [statType]
 ```
-Displays your current rank and kill count. Available to all players.
+Displays your current rank and stat value for the specified statistic. If no stat type is provided, defaults to kills. Available to all players.
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `statType` | string | `kills` | The statistic to check rank for (see [Stat Types](#stat-types)) |
+
+**Examples:**
+```
+/bl rank
+/bl rank kills
+/bl rank deaths
+/bl rank kd
+/bl rank time
+```
 
 ---
 

@@ -533,6 +533,22 @@ public class LeaderboardManager {
         return cachedRanks.get(uuid);
     }
 
+    public static Integer getRankForStat(UUID uuid, StatType statType) {
+        if (ServerList.list == null || ServerList.list.isEmpty()) {
+            return null;
+        }
+
+        List<Map.Entry<UUID, PlayerStatsList>> entries = new ArrayList<>(ServerList.list.entrySet());
+        entries.sort(Comparator.comparingInt((Map.Entry<UUID, PlayerStatsList> e) -> statType.getValue(e.getValue())).reversed());
+
+        for (int i = 0; i < entries.size(); i++) {
+            if (entries.get(i).getKey().equals(uuid)) {
+                return i + 1;
+            }
+        }
+        return null;
+    }
+
     public static int getKills(UUID uuid) {
         return cachedKills.getOrDefault(uuid, 0);
     }

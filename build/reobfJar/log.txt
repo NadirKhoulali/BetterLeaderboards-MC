@@ -151,8 +151,6 @@ Writing Output: G:\Better Leaderboards\build\reobfJar\output.jar
   austizz/better_leaderboards/Config.class
   austizz/better_leaderboards/DataHandler.class
   austizz/better_leaderboards/DeathListener.class
-  austizz/better_leaderboards/FakePlayer$FakePlayerData.class
-  austizz/better_leaderboards/FakePlayer.class
   austizz/better_leaderboards/LeaderboardCommands.class
   austizz/better_leaderboards/LeaderboardData$LeaderboardConfig.class
   austizz/better_leaderboards/LeaderboardData.class
