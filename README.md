@@ -1,6 +1,7 @@
 # Better Leaderboards
 
-![Static Badge](https://img.shields.io/badge/Curseforge?style=flat&logo=curseforge&link=https%3A%2F%2Fwww.curseforge.com%2Fminecraft%2Fmc-mods%2Fbetter-leaderboards-bl)
+[![Static Badge](https://img.shields.io/badge/Curseforge-Click%20Here-orange?style=flat&logo=curseforge&cacheSeconds=https%3A%2F%2Fwww.curseforge.com%2Fminecraft%2Fmc-mods%2Fbetter-leaderboards-bl)
+](https://www.curseforge.com/minecraft/mc-mods/better-leaderboards-bl)
 
 
 A Minecraft Forge mod for creating customizable holographic leaderboards that display player statistics in your world.
